@@ -5792,11 +5792,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Diveria\\AhorcadoApiRest\\AhorcadoApiRest.csproj",
+      "projectUniqueName": "c:\\Diveria\\AhorcadoApi\\AhorcadoApiRest.csproj",
       "projectName": "AhorcadoApiRest",
-      "projectPath": "c:\\Diveria\\AhorcadoApiRest\\AhorcadoApiRest.csproj",
+      "projectPath": "c:\\Diveria\\AhorcadoApi\\AhorcadoApiRest.csproj",
       "packagesPath": "C:\\Users\\juana\\.nuget\\packages\\",
-      "outputPath": "c:\\Diveria\\AhorcadoApiRest\\obj\\",
+      "outputPath": "c:\\Diveria\\AhorcadoApi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\juana\\AppData\\Roaming\\NuGet\\NuGet.Config"

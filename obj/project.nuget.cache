@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "UHI7eGt5KQ0OFoxVKMoqK6ssbPajsFHRPh9mmbCRNnDDlh3/Wut2w94ae/ZxL7/YHku8Cx/gmwMg554pcu1/6Q==",
+  "dgSpecHash": "Qf56Ua16t8+X8dqntu/CC7ikX8qDfLMhFAEjpPatFh9CX9gp48ZV1LR4KW8hLRhsx+GTHN5+5zz1LD5hbuatzw==",
   "success": true,
-  "projectFilePath": "c:\\Diveria\\AhorcadoApiRest\\AhorcadoApiRest.csproj",
+  "projectFilePath": "C:\\Diveria\\AhorcadoApi\\AhorcadoApiRest.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\juana\\.nuget\\packages\\mediatr\\12.0.1\\mediatr.12.0.1.nupkg.sha512",
     "C:\\Users\\juana\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",

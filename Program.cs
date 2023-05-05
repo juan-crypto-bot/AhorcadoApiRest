@@ -23,6 +23,4 @@ namespace AhorcadoApiRest
                     webBuilder.UseStartup<Startup>();
                 });
     }
-
-    Console.writeLine("hola");
 }

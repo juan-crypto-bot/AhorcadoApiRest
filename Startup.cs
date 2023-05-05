@@ -26,15 +26,19 @@ namespace AhorcadoApiRest
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<HangDbContext>(opt => opt.UseSqlServer(Configuration["DefaultConnection"]));
-            services.AddTransient<IHangService, HangService>();
+            services.AddDbContext<HangedDbContext>(opt => opt.UseSqlServer(Configuration["DefaultConnection"]));
+            services.AddTransient<IHangedService, HangedService>();
             
             services.AddControllers();
+            services.AddOptions();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            
+              app.UseLoggingMiddleware();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

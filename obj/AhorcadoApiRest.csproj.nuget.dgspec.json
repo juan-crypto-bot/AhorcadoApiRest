@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Diveria\\AhorcadoApiRest\\AhorcadoApiRest.csproj": {}
+    "C:\\Diveria\\AhorcadoApi\\AhorcadoApiRest.csproj": {}
   },
   "projects": {
-    "c:\\Diveria\\AhorcadoApiRest\\AhorcadoApiRest.csproj": {
+    "C:\\Diveria\\AhorcadoApi\\AhorcadoApiRest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Diveria\\AhorcadoApiRest\\AhorcadoApiRest.csproj",
+        "projectUniqueName": "C:\\Diveria\\AhorcadoApi\\AhorcadoApiRest.csproj",
         "projectName": "AhorcadoApiRest",
-        "projectPath": "c:\\Diveria\\AhorcadoApiRest\\AhorcadoApiRest.csproj",
+        "projectPath": "C:\\Diveria\\AhorcadoApi\\AhorcadoApiRest.csproj",
         "packagesPath": "C:\\Users\\juana\\.nuget\\packages\\",
-        "outputPath": "c:\\Diveria\\AhorcadoApiRest\\obj\\",
+        "outputPath": "C:\\Diveria\\AhorcadoApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\juana\\AppData\\Roaming\\NuGet\\NuGet.Config"
