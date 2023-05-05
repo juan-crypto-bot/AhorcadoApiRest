@@ -9,6 +9,11 @@ namespace AhorcadoApiRest{
         //public DbSet<Letter> Letter {get; set; }
         public DbSet<Player> PLayer {get; set; }
         public DbSet<Word> Word {get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<WordLetter>().HasKey(wl => new { wl.LetterId, wl.WordId });
+        modelBuilder.Entity<HangedLetter>().HasKey(wl => new { wl.LetterId, wl.HangedId });
+    }
         public HangedDbContext(DbContextOptions<HangedDbContext> options) : base(options){
             
         }

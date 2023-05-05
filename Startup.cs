@@ -28,6 +28,8 @@ namespace AhorcadoApiRest
         {
             services.AddDbContext<HangedDbContext>(opt => opt.UseSqlServer(Configuration["DefaultConnection"]));
             services.AddTransient<IHangedService, HangedService>();
+            services.AddTransient<IPlayerService, PlayerService>();
+            services.AddTransient<IWordService, WordService>();
             
             services.AddControllers();
             services.AddOptions();

@@ -11,6 +11,17 @@ namespace AhorcadoApiRest{
 
         public IEnumerable<HangedLetter> HangedLetter{get; set;}
       
+
+        public Hanged(){
+            
+        }
+        
+        public Hanged(Player player, Word word){
+            this.Player = player;
+            this.Hang = new Hang();
+            this.Word = word;
+
+        }
     }    
 
 }

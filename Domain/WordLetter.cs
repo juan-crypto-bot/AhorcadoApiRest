@@ -1,11 +1,21 @@
+
+
 namespace AhorcadoApiRest{
 
     public class WordLetter{    
         
-        public int Id{get; set;}
 
-        public Word Word{get; set;}
+        public int WordId {get;set;}
+        
 
-        public Letter Letter{get; set;}
+        public int LetterId {get;set;}
+        public virtual Word Word{get; set;}
+        
+        public virtual Letter Letter{get; set;}
+
+        public int Position{get; set;}
+        public WordLetter(){
+
+        }
     }
 }

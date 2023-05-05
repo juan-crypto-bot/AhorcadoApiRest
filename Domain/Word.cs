@@ -6,12 +6,9 @@ namespace AhorcadoApiRest{
         
         public int Id{get; set;}
 
-        public IEnumerable<WordLetter> WordLetter{get; set;}
+        public string Value{get; set;}
         
-        public Word(){
-
-
-        }
+        public Word(){}
     
     }
 }  

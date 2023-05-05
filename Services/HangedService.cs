@@ -1,22 +1,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace AhorcadoApiRest{
     public interface IHangedService{
-        
-        Hanged GetStatus(int id);
         Hanged FindById(int id);
         IEnumerable<Hanged> GetAll();
-        //void NewGame(Player player);
 
-        //IActionResult Try(int id, char letra);
-        //IEnumerable<Beer> GetAll();
-        //Beer FindById(int id);
+        void NewGame(Player player, Word word);
 
-        //bool TryAdd(Beer beer);
-        //IEnumerable<Beer> FindByName(string name);
     }
     public class HangedService : IHangedService{
 
@@ -29,14 +23,10 @@ namespace AhorcadoApiRest{
             _db.Database.EnsureCreated();    
         }
 
-        public Hanged GetStatus(int id){
-           return this.FindById(id);
-        } 
-
         public Hanged FindById(int id)
         {
             _logger.LogInformation("Searching for Hang with id: " + id);
-            var hang = _db.Hanged.SingleOrDefault(h => h.Id == id);
+            Hanged hang = _db.Hanged.Include("Player.Hang.Word").SingleOrDefault(h => h.Id == id);
             return hang;
         }
 
@@ -45,15 +35,27 @@ namespace AhorcadoApiRest{
             return _db.Hanged.ToList();
         }
 
-        /*public void NewGame(Player player){
-            var game = new Hanged(player);
-        }*/
+        public bool TryAdd(Hanged hanged){
+            //beer.Id=1;
+            _db.Hanged.Add(hanged);
+            _db.SaveChanges();
+            return true;
+        }
 
-       /* public IActionResult Try(int id, char letra){
+        public bool Delete(int id){
             var hanged = _db.Hanged.SingleOrDefault(h => h.Id == id);
-            if(hanged != null){
-            hanged.TryAtempt(letra);
-             _db.SaveChanges();
-        }*/
+            if(hanged !=null){
+                _db.Hanged.Remove(hanged);
+                _db.SaveChanges();
+                return true;
+            }
+            return false; 
+        }
+
+        public void NewGame(Player player, Word word){
+            var hanged = new Hanged(player, word);
+            _db.Hanged.Add(hanged);
+            _db.SaveChanges();
+        }
     }
 }   

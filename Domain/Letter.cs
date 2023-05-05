@@ -5,6 +5,9 @@ namespace AhorcadoApiRest{
         public int Id{get; set;}
         public char Value{get; set;}
       
+        public Letter(){
+            
+        }
     }
 
 

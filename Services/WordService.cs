@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
@@ -6,7 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace AhorcadoApiRest{
     public interface IWordService{
-        //Player FindPlayerById(int id);
+        Word SelectRandomWord();
 
     }
     public class WordService : IWordService{
@@ -20,17 +21,8 @@ namespace AhorcadoApiRest{
             //_db.Database.EnsureCreated();    
         }
 
-       /* public Word SelectWord(){
-            SqlConnection connection = new SqlConnection("Server=DESKTOP-1I6R14U;Database=Hanged;Integrated Security=false;Trusted_Connection=True;MultipleActiveResultSets=true");
-            connection.Open();
-            SqlCommand command = new SqlCommand("SELECT TOP 1 * FROM Word ORDER BY NEWID()", connection);
-            SqlDataReader reader = command.ExecuteReader();
-            Word word = new Word();
-            if(reader.Read()){
-                word
-            }
-            reader.Close();
-            connection.Close();*/
-            
+        public Word SelectRandomWord(){
+            return _db.Word.OrderBy(o => Guid.NewGuid()).FirstOrDefault(); 
         }
     }
+}
