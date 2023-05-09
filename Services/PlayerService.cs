@@ -15,15 +15,13 @@ namespace AhorcadoApiRest{
         private readonly HangedDbContext _db;
         public PlayerService(ILogger<PlayerService> logger, HangedDbContext db){
             _db = db;
-            _logger = logger;
-            //_db.Database.EnsureCreated();    
+            _logger = logger;    
         }
 
         public Player FindPlayerById(int id)
         {
             _logger.LogInformation("Searching for Player with id: " + id);
-            var player = _db.PLayer.SingleOrDefault(p => p.Id == id);
-            return player;
+            return _db.PLayer.SingleOrDefault(p => p.Id == id);
         }
     }
 }

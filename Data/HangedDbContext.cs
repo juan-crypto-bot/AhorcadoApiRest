@@ -6,7 +6,7 @@ namespace AhorcadoApiRest{
         //public DbSet<HangedLetter> HangedLetter {get; set; }
         //public DbSet<WordLetter> WordLetter {get; set; }
         public DbSet<Hang> Hang {get; set; }
-        //public DbSet<Letter> Letter {get; set; }
+        public DbSet<Letter> Letter {get; set; }
         public DbSet<Player> PLayer {get; set; }
         public DbSet<Word> Word {get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)

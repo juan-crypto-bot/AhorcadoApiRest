@@ -63,7 +63,6 @@ C:\Diveria\AhorcadoApiRest\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2
 C:\Diveria\AhorcadoApiRest\obj\Debug\netcoreapp3.1\AhorcadoApiRest.csproj.CopyComplete
 C:\Diveria\AhorcadoApi\bin\Debug\netcoreapp3.1\appsettings.Development.json
 C:\Diveria\AhorcadoApi\bin\Debug\netcoreapp3.1\appsettings.json
-C:\Diveria\AhorcadoApi\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
 C:\Diveria\AhorcadoApi\bin\Debug\netcoreapp3.1\AhorcadoApiRest.exe
 C:\Diveria\AhorcadoApi\bin\Debug\netcoreapp3.1\AhorcadoApiRest.deps.json
 C:\Diveria\AhorcadoApi\bin\Debug\netcoreapp3.1\AhorcadoApiRest.runtimeconfig.json
@@ -112,7 +111,6 @@ C:\Diveria\AhorcadoApi\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
 C:\Diveria\AhorcadoApi\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Diveria\AhorcadoApi\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Diveria\AhorcadoApi\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-C:\Diveria\AhorcadoApi\obj\Debug\netcoreapp3.1\AhorcadoApiRest.csprojAssemblyReference.cache
 C:\Diveria\AhorcadoApi\obj\Debug\netcoreapp3.1\AhorcadoApiRest.AssemblyInfoInputs.cache
 C:\Diveria\AhorcadoApi\obj\Debug\netcoreapp3.1\AhorcadoApiRest.AssemblyInfo.cs
 C:\Diveria\AhorcadoApi\obj\Debug\netcoreapp3.1\AhorcadoApiRest.csproj.CoreCompileInputs.cache
@@ -120,7 +118,14 @@ C:\Diveria\AhorcadoApi\obj\Debug\netcoreapp3.1\AhorcadoApiRest.MvcApplicationPar
 C:\Diveria\AhorcadoApi\obj\Debug\netcoreapp3.1\AhorcadoApiRest.RazorTargetAssemblyInfo.cache
 C:\Diveria\AhorcadoApi\obj\Debug\netcoreapp3.1\AhorcadoApiRest.csproj.CopyComplete
 C:\Diveria\AhorcadoApi\obj\Debug\netcoreapp3.1\staticwebassets\AhorcadoApiRest.StaticWebAssets.Manifest.cache
-C:\Diveria\AhorcadoApi\obj\Debug\netcoreapp3.1\staticwebassets\AhorcadoApiRest.StaticWebAssets.xml
 C:\Diveria\AhorcadoApi\obj\Debug\netcoreapp3.1\AhorcadoApiRest.dll
 C:\Diveria\AhorcadoApi\obj\Debug\netcoreapp3.1\AhorcadoApiRest.pdb
 C:\Diveria\AhorcadoApi\obj\Debug\netcoreapp3.1\AhorcadoApiRest.genruntimeconfig.cache
+C:\Diveria\AhorcadoApi\obj\Debug\netcoreapp3.1\AhorcadoApiRest.csproj.AssemblyReference.cache
+C:\Diveria\AhorcadoApi\obj\Debug\netcoreapp3.1\AhorcadoApiRest.GeneratedMSBuildEditorConfig.editorconfig
+C:\Diveria\AhorcadoApi\bin\Debug\netcoreapp3.1\AhorcadoApiRest.StaticWebAssets.xml
+C:\Diveria\AhorcadoApi\obj\Debug\netcoreapp3.1\staticwebassets\AhorcadoApiRest.StaticWebAssets.Pack.cache
+C:\Diveria\AhorcadoApi\obj\Debug\netcoreapp3.1\staticwebassets\msbuild.AhorcadoApiRest.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Diveria\AhorcadoApi\obj\Debug\netcoreapp3.1\staticwebassets\msbuild.build.AhorcadoApiRest.props
+C:\Diveria\AhorcadoApi\obj\Debug\netcoreapp3.1\staticwebassets\msbuild.buildMultiTargeting.AhorcadoApiRest.props
+C:\Diveria\AhorcadoApi\obj\Debug\netcoreapp3.1\staticwebassets\msbuild.buildTransitive.AhorcadoApiRest.props

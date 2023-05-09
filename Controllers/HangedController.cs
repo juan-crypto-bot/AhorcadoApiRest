@@ -6,58 +6,74 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace AhorcadoApiRest{
+namespace AhorcadoApiRest
+{
 
     [ApiController]
     [Route("[controller]")]
-    
-    public class HangedController : ControllerBase{
+
+    public class HangedController : ControllerBase
+    {
         private readonly ILogger<HangedController> _logger;
         private readonly IHangedService _hangedService;
-        private readonly IPlayerService _playerService;
-        private readonly IWordService _wordService;
-
         //private readonly BeersConfig _config;
-        public HangedController(IHangedService hangedService, IPlayerService playerService, IWordService wordService, ILogger<HangedController> logger){
+        public HangedController(IHangedService hangedService, ILogger<HangedController> logger)
+        {
             _logger = logger;
             _hangedService = hangedService;
-            _playerService = playerService;
-            _wordService = wordService;
             //_config = bc.Value;
         }
- 
+
         [HttpGet]
         public IEnumerable<Hanged> Get()
         {
             return _hangedService.GetAll();
         }
-        
+
         [HttpGet("{id:int}")]
-    
-        public Hanged GetForecast(int id){
+
+        public Hanged GetForecast(int id)
+        {
             return _hangedService.FindById(id);
         }
 
-        [HttpPost("{PlayerId:int}")]
-        public void NewGame(int PlayerId){
-            var player = _playerService.FindPlayerById(PlayerId);
-            if(player!=null){
-                var word = _wordService.SelectRandomWord();
-                _hangedService.NewGame(player, word);
+        [HttpPost("play/{PlayerId:int}")]
+        public IActionResult NewGame(int PlayerId)
+        {
+            try
+            {
+                return Ok(_hangedService.NewGame(PlayerId));
             }
-            else _logger.LogInformation("Id provided not exist");
-        } 
+            catch
+            {
+                return BadRequest("An error had ocurred when the Hanged try to create");
+            }
+        }
 
-        [HttpPost("{HangedId:int}/try/{letter:char}")]
-        public void Play(int HangedId, char letter){
-            var hanged = _hangedService.FindById(HangedId);
-            if(hanged!=null){
-                hanged.
-                
-                _hangedService.TryLetter(letter);
+        [HttpPost("{newWord}")]
+        public IActionResult CreateWord([FromBody] string param)
+        {
+            try
+            {
+                return Ok(_hangedService.CreateWord(param));
             }
-            else _logger.LogInformation("Id provided not exist");
-        } 
-     
+            catch
+            {
+                return BadRequest("An error had ocurred when the Word try to create");
+            }
+        }
+
+        [HttpPost("{try}")]
+        public IActionResult Play([FromBody] int HangedId, char letter)
+        {
+            try
+            {
+                Ok(_hangedService.Play(HangedId, letter));
+            }
+            catch
+            {
+                return BadRequest("An error had ocurred");
+            }
+        }
     }
 }

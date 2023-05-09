@@ -30,7 +30,11 @@ namespace AhorcadoApiRest
             services.AddTransient<IHangedService, HangedService>();
             services.AddTransient<IPlayerService, PlayerService>();
             services.AddTransient<IWordService, WordService>();
-            
+            services.AddTransient<ILetterService, LetterService>();
+            services.AddTransient<IHangedRepository, SqlServerHangedRepository>();
+            services.AddTransient<ILetterRepository, SqlServerLetterRepository>();
+            services.AddTransient<IWordRepository, SqlServerWordRepository>();
+
             services.AddControllers();
             services.AddOptions();
         }
@@ -38,8 +42,8 @@ namespace AhorcadoApiRest
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            
-              app.UseLoggingMiddleware();
+
+            app.UseLoggingMiddleware();
 
             if (env.IsDevelopment())
             {
