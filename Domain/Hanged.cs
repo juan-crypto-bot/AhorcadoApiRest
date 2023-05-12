@@ -7,8 +7,8 @@ namespace AhorcadoApiRest
     {
 
         public int Id { get; set; }
+        public int Lives { get; set; }
         public Player Player { get; set; }
-        public Hang Hang { get; set; }
         public Word Word { get; set; }
 
         public List<Letter> UsedLetter { get; set; } = new List<Letter>();
@@ -20,8 +20,8 @@ namespace AhorcadoApiRest
 
         public Hanged(Player player, Word word)
         {
+            this.Lives = 6;
             this.Player = player;
-            this.Hang = new Hang();
             this.Word = word;
 
         }

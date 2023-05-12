@@ -8,10 +8,12 @@ namespace AhorcadoApiRest
 
     public interface IHangedRepository
     {
-        Hanged CreateHanged(Player player, Word word);
-        IEnumerable<Hanged> GetAll();
-        Hanged FindById(int id);
-        bool Delete(int id);
+        Hanged Create(Player player, Word word);
+        Hanged Read(int id);
+        Hanged Update(int id);
+        void Delete(int id);
+        IEnumerable<Hanged> GetAllHangeds();
+
     }
 
     public class SqlServerHangedRepository : IHangedRepository
@@ -21,8 +23,9 @@ namespace AhorcadoApiRest
         public SqlServerHangedRepository(HangedDbContext db)
         {
             _db = db;
+            _db.Database.EnsureCreated();
         }
-        public Hanged CreateHanged(Player player, Word word)
+        public Hanged Create(Player player, Word word)
         {
             var hanged = new Hanged(player, word);
             _db.Hanged.Add(hanged);
@@ -30,28 +33,26 @@ namespace AhorcadoApiRest
             return hanged;
         }
 
-        public IEnumerable<Hanged> GetAll()
+        public Hanged Read(int id)
         {
-            //Console.WriteLine("hola");
+            return _db.Hanged.SingleOrDefault(h => h.Id == id);
+        }
+
+        public Hanged Update(int id)
+        {
+            return new Hanged();
+        }
+
+        public void Delete(int id)
+        {
+            var hanged = this.Read(id);
+            _db.Hanged.Remove(hanged);
+            _db.SaveChanges();
+        }
+
+        public IEnumerable<Hanged> GetAllHangeds()
+        {
             return _db.Hanged.ToList();
-        }
-
-        public Hanged FindById(int id)
-        {
-            Hanged hang = _db.Hanged.Include("Player.Hang.Word").SingleOrDefault(h => h.Id == id);
-            return hang;
-        }
-
-        public bool Delete(int id)
-        {
-            var hanged = _db.Hanged.SingleOrDefault(h => h.Id == id);
-            if (hanged != null)
-            {
-                _db.Hanged.Remove(hanged);
-                _db.SaveChanges();
-                return true;
-            }
-            return false;
         }
     }
 }

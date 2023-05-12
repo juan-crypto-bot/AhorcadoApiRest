@@ -34,6 +34,7 @@ namespace AhorcadoApiRest
             services.AddTransient<IHangedRepository, SqlServerHangedRepository>();
             services.AddTransient<ILetterRepository, SqlServerLetterRepository>();
             services.AddTransient<IWordRepository, SqlServerWordRepository>();
+            services.AddTransient<IPlayerRepository, SqlServerPlayerRepository>();
 
             services.AddControllers();
             services.AddOptions();

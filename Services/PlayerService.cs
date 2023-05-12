@@ -3,25 +3,48 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace AhorcadoApiRest{
-    public interface IPlayerService{
-        Player FindPlayerById(int id);
-
+namespace AhorcadoApiRest
+{
+    public interface IPlayerService
+    {
+        Player CreatePlayer(string user, string pass);
+        Player ReadPlayer(string user);
+        Player UpdatePlayer(string user, string pass);
+        void DeletePlayer(string user, string pass);
+        IEnumerable<Player> GetAllPlayers();
     }
-    public class PlayerService : IPlayerService{
+    public class PlayerService : IPlayerService
+    {
 
         private readonly ILogger<PlayerService> _logger;
 
-        private readonly HangedDbContext _db;
-        public PlayerService(ILogger<PlayerService> logger, HangedDbContext db){
-            _db = db;
-            _logger = logger;    
+        private readonly IPlayerRepository _playerRepository;
+        public PlayerService(ILogger<PlayerService> logger, IPlayerRepository playerRepository)
+        {
+            _playerRepository = playerRepository;
+            _logger = logger;
         }
 
-        public Player FindPlayerById(int id)
+        public Player CreatePlayer(string user, string pass)
         {
-            _logger.LogInformation("Searching for Player with id: " + id);
-            return _db.PLayer.SingleOrDefault(p => p.Id == id);
+            return _playerRepository.Create(user, pass);
+        }
+        public Player ReadPlayer(string user)
+        {
+            return _playerRepository.Read(user);
+        }
+        public Player UpdatePlayer(string user, string pass)
+        {
+            return _playerRepository.Update(user, pass);
+
+        }
+        public void DeletePlayer(string user, string pass)
+        {
+            _playerRepository.Delete(user, pass);
+        }
+        public IEnumerable<Player> GetAllPlayers()
+        {
+            return _playerRepository.GetAll();
         }
     }
 }

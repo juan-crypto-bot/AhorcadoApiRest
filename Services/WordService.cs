@@ -9,55 +9,89 @@ namespace AhorcadoApiRest
 {
     public interface IWordService
     {
+        public Word CreateWord(string meaning);
+        Word ReadWord(string meaning);
+        Word UpdateWord(string meaning);
+        void DeleteWord(string meaning);
+        IEnumerable<Word> GetAllWords();
         Word SelectRandomWord();
-
-        Hanged TryLetter(Hanged hanged, char letter);
-
-        Word CreateWord(string meaning);
-
+        bool TryLetter(Hanged hanged, char letter);
     }
     public class WordService : IWordService
     {
-
-        private ILetterRepository _letterRepository;
         private IWordRepository _wordRepository;
         private ILetterService _letterService;
-        private readonly ILogger<PlayerService> _logger;
-
-        private readonly HangedDbContext _db;
-        public WordService(ILogger<PlayerService> logger, HangedDbContext db, ILetterService letterService, IWordRepository wordRepository, ILetterRepository letterRepository)
+        private readonly ILogger<WordService> _logger;
+        public WordService(ILogger<WordService> logger, ILetterService letterService, IWordRepository wordRepository)
         {
-            _db = db;
             _logger = logger;
             _letterService = letterService;
             _wordRepository = wordRepository;
-            _letterRepository = letterRepository;
-            //_db.Database.EnsureCreated();    
         }
+
+
+        public Word CreateWord(string meaning)
+        {
+            IEnumerable<Letter> letters = meaning.ToCharArray().Select(letter => _letterService.ReadLetter(letter.ToString())).ToList();
+
+            foreach (var i in letters)
+            {
+                Console.WriteLine(i.Value);
+            }
+            return _wordRepository.Create(letters);
+        }
+
+
+        public Word ReadWord(string meaning)
+        {
+            IEnumerable<Letter> letters = meaning.Select(letter => _letterService.ReadLetter(letter.ToString())).ToList();
+            return _wordRepository.Read(letters);
+        }
+
+
+        public Word UpdateWord(string meaning)
+        {
+            return _wordRepository.Update(meaning);
+
+        }
+
+
+        public void DeleteWord(string meaning)
+        {
+            IEnumerable<Letter> letters = meaning.Select(letter => _letterService.ReadLetter(letter.ToString())).ToList();
+            _wordRepository.Delete(letters);
+        }
+
+
+        public IEnumerable<Word> GetAllWords()
+        {
+            return _wordRepository.GetAll();
+        }
+
 
         public Word SelectRandomWord()
         {
             return _wordRepository.SelectRandomWord();
         }
 
-        public Word CreateWord(string meaning)
+
+
+        public bool TryLetter(Hanged hanged, char letter)
         {
-            var letters = meaning.ToCharArray().Select(letter => _letterService.GetLetterByChar(letter)).ToList();
-            return _wordRepository.CreateWord(letters);
-        }
+            Letter l = _letterService.ReadLetter(letter.ToString());
+            if (hanged.UsedLetter.Contains(l)) return true;
+            else return false;
 
-        public Hanged TryLetter(Hanged hanged, char letter)
-        {
-            foreach (var i in hanged.Word.Letters)
-            {
-                if (i.Value == letter)
-                {
-                    //Que pasa si es igual??
-                }
-                else //que pasa si es diferente???
+            /* foreach (var i in hanged.Word.Letters)
+             {
+                 if (i.Value == letter)
+                 {
+                     //Que pasa si es igual??
+                 }
+                 else //que pasa si es diferente???*/
 
 
-            }
         }
     }
 }
+
