@@ -70,3 +70,7 @@ C:\Diveria\AhorcadoApi\obj\Debug\netcoreapp7.0\refint\AhorcadoApiRest.dll
 C:\Diveria\AhorcadoApi\obj\Debug\netcoreapp7.0\AhorcadoApiRest.pdb
 C:\Diveria\AhorcadoApi\obj\Debug\netcoreapp7.0\AhorcadoApiRest.genruntimeconfig.cache
 C:\Diveria\AhorcadoApi\obj\Debug\netcoreapp7.0\ref\AhorcadoApiRest.dll
+C:\Diveria\AhorcadoApi\bin\Debug\netcoreapp7.0\Newtonsoft.Json.dll
+C:\Diveria\AhorcadoApi\bin\Debug\netcoreapp7.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Diveria\AhorcadoApi\bin\Debug\netcoreapp7.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Diveria\AhorcadoApi\bin\Debug\netcoreapp7.0\Newtonsoft.Json.Bson.dll

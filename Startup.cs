@@ -11,7 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-
+using Newtonsoft.Json.Linq;
 namespace AhorcadoApiRest
 {
     public class Startup
@@ -35,8 +35,7 @@ namespace AhorcadoApiRest
             services.AddTransient<ILetterRepository, SqlServerLetterRepository>();
             services.AddTransient<IWordRepository, SqlServerWordRepository>();
             services.AddTransient<IPlayerRepository, SqlServerPlayerRepository>();
-
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
             services.AddOptions();
         }
 

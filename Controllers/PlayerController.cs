@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json.Linq;
 
 namespace AhorcadoApiRest
 {
@@ -36,8 +37,10 @@ namespace AhorcadoApiRest
         }
 
         [HttpPost("UpdatePlayer")]
-        public IActionResult UpdatePlayer([FromBody] PlayerDTO playerDTO, string newPass)
+        public IActionResult UpdatePlayer([FromBody] JObject data)
         {
+            PlayerDTO playerDTO = data["playerDTO"].ToObject<PlayerDTO>();
+            var newPass = data["newPass"].ToString();
             return Ok(_playerService.UpdatePlayer(playerDTO, newPass));
         }
 

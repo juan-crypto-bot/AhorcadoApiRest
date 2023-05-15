@@ -33,7 +33,7 @@ namespace AhorcadoApiRest
 
         public Player Read(Player player)
         {
-            return _db.Player.SingleOrDefault(player => player.Username == player.Username);
+            return _db.Player.SingleOrDefault(p => p.Username == player.Username);
         }
 
         public Player Update(Player player, string newPass)
@@ -46,7 +46,7 @@ namespace AhorcadoApiRest
 
         public void Delete(Player player)
         {
-            var playerToDelete = _db.Player.SingleOrDefault(player => player.Username == player.Username && player.Password == player.Password);
+            var playerToDelete = _db.Player.SingleOrDefault(p => p.Id == player.Id);
             _db.Player.Remove(playerToDelete);
             _db.SaveChanges();
         }
