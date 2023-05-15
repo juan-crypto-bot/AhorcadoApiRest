@@ -7,10 +7,10 @@ namespace AhorcadoApiRest
 
     public interface IWordRepository
     {
-        Word Create(IEnumerable<Letter> meaning);
-        Word Read(IEnumerable<Letter> meaning);
-        Word Update(string meaning);
-        void Delete(IEnumerable<Letter> meaning);
+        Word Create(Word word);
+        Word Read(Word word);
+        Word Update(Word word);
+        void Delete(Word word);
         IEnumerable<Word> GetAll();
         Word SelectRandomWord();
     }
@@ -22,29 +22,31 @@ namespace AhorcadoApiRest
         public SqlServerWordRepository(HangedDbContext db)
         {
             _db = db;
+            _db.Database.EnsureCreated();
         }
 
-        public Word Create(IEnumerable<Letter> meaning)
+        public Word Create(Word word)
         {
-            var word = new Word(meaning);
             _db.Word.Add(word);
             _db.SaveChanges();
             return word;
         }
 
-        public Word Read(IEnumerable<Letter> meaning)
+        public Word Read(Word word)
         {
-            return _db.Word.SingleOrDefault(word => word.Letters == meaning.ToList());
+            return _db.Word.Single(w => w.Id == word.Id);
         }
 
-        public Word Update(string meaning)
+        public Word Update(Word word)
         {
-            return new Word();
+            var wordToUpdate = this.Read(word);
+            wordToUpdate.Letters = word.Letters;
+            _db.SaveChanges();
+            return wordToUpdate;
         }
 
-        public void Delete(IEnumerable<Letter> meaning)
+        public void Delete(Word word)
         {
-            var word = this.Read(meaning);
             _db.Word.Remove(word);
             _db.SaveChanges();
         }

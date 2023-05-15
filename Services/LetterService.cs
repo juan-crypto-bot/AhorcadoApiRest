@@ -6,10 +6,9 @@ namespace AhorcadoApiRest
 {
     public interface ILetterService
     {
-        Letter CreateLetter(string value);
-        Letter ReadLetter(string value);
-        Letter UpdateLetter(string value);
-        void DeleteLetter(string value);
+        Letter CreateLetter(LetterDTO letterDTO);
+        Letter ReadLetter(LetterDTO letterDTO);
+        void DeleteLetter(LetterDTO letterDTO);
         IEnumerable<Letter> GetAllLetters();
     }
     public class LetterService : ILetterService
@@ -24,29 +23,22 @@ namespace AhorcadoApiRest
             _letterRepository = letterRepository;
         }
 
-        public Letter CreateLetter(string value)
+        public Letter CreateLetter(LetterDTO letterDTO)
         {
-            char firstChar = value.FirstOrDefault();
-            return _letterRepository.Create(firstChar);
+            Letter letter = new Letter(letterDTO);
+            return _letterRepository.Create(letter);
         }
 
-        public Letter ReadLetter(string value)
+        public Letter ReadLetter(LetterDTO letterDTO)
         {
-            char firstChar = value.FirstOrDefault();
-            return _letterRepository.Read(firstChar);
+            Letter letter = new Letter(letterDTO);
+            return _letterRepository.Read(letter);
         }
 
-        public Letter UpdateLetter(string value)
+        public void DeleteLetter(LetterDTO letterDTO)
         {
-            char firstChar = value.FirstOrDefault();
-            return _letterRepository.Update(firstChar);
-
-        }
-
-        public void DeleteLetter(string value)
-        {
-            char firstChar = value.FirstOrDefault();
-            _letterRepository.Delete(firstChar);
+            Letter letter = new Letter(letterDTO);
+            _letterRepository.Delete(letter);
         }
 
         public IEnumerable<Letter> GetAllLetters()

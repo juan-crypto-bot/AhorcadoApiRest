@@ -11,6 +11,12 @@ namespace AhorcadoApiRest
         public Player()
         {
         }
+        public Player(PlayerDTO playerDTO)
+        {
+            this.Id = playerDTO.Id;
+            this.Username = playerDTO.Username;
+            this.Password = playerDTO.Password;
+        }
 
         public Player(string user, string pass)
         {

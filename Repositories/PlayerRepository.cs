@@ -7,12 +7,11 @@ namespace AhorcadoApiRest
 
     public interface IPlayerRepository
     {
-        Player Create(string user, string pass);
-        Player Read(string user);
-        Player Update(string user, string pass);
-        void Delete(string user, string pass);
+        Player Create(Player player);
+        Player Read(Player player);
+        Player Update(Player player, string newPass);
+        void Delete(Player player);
         IEnumerable<Player> GetAll();
-        Player FindPlayerById(int id);
     }
 
     public class SqlServerPlayerRepository : IPlayerRepository
@@ -22,41 +21,39 @@ namespace AhorcadoApiRest
         public SqlServerPlayerRepository(HangedDbContext db)
         {
             _db = db;
+            _db.Database.EnsureCreated();
         }
 
-        public Player Create(string user, string pass)
+        public Player Create(Player player)
         {
-            var player = new Player(user, pass);
             _db.Player.Add(player);
             _db.SaveChanges();
             return player;
         }
 
-        public Player Read(string user)
+        public Player Read(Player player)
         {
-            return _db.Player.SingleOrDefault(player => player.Username == user);
+            return _db.Player.SingleOrDefault(player => player.Username == player.Username);
         }
 
-        public Player Update(string user, string pass)
+        public Player Update(Player player, string newPass)
         {
-            return new Player();
+            var playerToUpdate = this.Read(player);
+            playerToUpdate.Password = newPass;
+            _db.SaveChanges();
+            return playerToUpdate;
         }
 
-        public void Delete(string user, string pass)
+        public void Delete(Player player)
         {
-            var player = _db.Player.SingleOrDefault(player => player.Username == user && player.Password == pass);
-            _db.Player.Remove(player);
+            var playerToDelete = _db.Player.SingleOrDefault(player => player.Username == player.Username && player.Password == player.Password);
+            _db.Player.Remove(playerToDelete);
             _db.SaveChanges();
         }
 
         public IEnumerable<Player> GetAll()
         {
             return _db.Player.ToList();
-        }
-
-        public Player FindPlayerById(int id)
-        {
-            return _db.Player.SingleOrDefault(p => p.Id == id);
         }
     }
 }

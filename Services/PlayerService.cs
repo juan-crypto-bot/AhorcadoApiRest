@@ -7,10 +7,10 @@ namespace AhorcadoApiRest
 {
     public interface IPlayerService
     {
-        Player CreatePlayer(string user, string pass);
-        Player ReadPlayer(string user);
-        Player UpdatePlayer(string user, string pass);
-        void DeletePlayer(string user, string pass);
+        Player CreatePlayer(PlayerDTO playerDTO);
+        Player ReadPlayer(PlayerDTO playerDTO);
+        Player UpdatePlayer(PlayerDTO playerDTO, string newPass);
+        void DeletePlayer(PlayerDTO playerDTO);
         IEnumerable<Player> GetAllPlayers();
     }
     public class PlayerService : IPlayerService
@@ -25,22 +25,26 @@ namespace AhorcadoApiRest
             _logger = logger;
         }
 
-        public Player CreatePlayer(string user, string pass)
+        public Player CreatePlayer(PlayerDTO playerDTO)
         {
-            return _playerRepository.Create(user, pass);
+            Player player = new Player(playerDTO);
+            return _playerRepository.Create(player);
         }
-        public Player ReadPlayer(string user)
+        public Player ReadPlayer(PlayerDTO playerDTO)
         {
-            return _playerRepository.Read(user);
+            Player player = new Player(playerDTO);
+            return _playerRepository.Read(player);
         }
-        public Player UpdatePlayer(string user, string pass)
+        public Player UpdatePlayer(PlayerDTO playerDTO, string newPass)
         {
-            return _playerRepository.Update(user, pass);
+            Player player = new Player(playerDTO);
+            return _playerRepository.Update(player, newPass);
 
         }
-        public void DeletePlayer(string user, string pass)
+        public void DeletePlayer(PlayerDTO playerDTO)
         {
-            _playerRepository.Delete(user, pass);
+            Player player = new Player(playerDTO);
+            _playerRepository.Delete(player);
         }
         public IEnumerable<Player> GetAllPlayers()
         {

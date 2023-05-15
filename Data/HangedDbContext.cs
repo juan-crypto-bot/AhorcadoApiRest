@@ -10,6 +10,9 @@ namespace AhorcadoApiRest
         public DbSet<Word> Word { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Letter>().HasIndex(l => l.Value).IsUnique();
+            modelBuilder.Entity<Player>().HasIndex(p => p.Username).IsUnique();
+            //modelBuilder.Entity<Word>().HasIndex(w=>w.Letters).IsUnique();
         }
         public HangedDbContext(DbContextOptions<HangedDbContext> options) : base(options)
         {

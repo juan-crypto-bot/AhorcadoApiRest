@@ -10,7 +10,6 @@ namespace AhorcadoApiRest
     {
         Hanged Create(Player player, Word word);
         Hanged Read(int id);
-        Hanged Update(int id);
         void Delete(int id);
         IEnumerable<Hanged> GetAllHangeds();
 
@@ -35,12 +34,7 @@ namespace AhorcadoApiRest
 
         public Hanged Read(int id)
         {
-            return _db.Hanged.SingleOrDefault(h => h.Id == id);
-        }
-
-        public Hanged Update(int id)
-        {
-            return new Hanged();
+            return _db.Hanged.FirstOrDefault(h => h.Id == id);
         }
 
         public void Delete(int id)

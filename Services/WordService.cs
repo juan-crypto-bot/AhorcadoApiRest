@@ -9,13 +9,13 @@ namespace AhorcadoApiRest
 {
     public interface IWordService
     {
-        public Word CreateWord(string meaning);
-        Word ReadWord(string meaning);
-        Word UpdateWord(string meaning);
-        void DeleteWord(string meaning);
+        public Word CreateWord(WordDTO wordDTO);
+        Word ReadWord(WordDTO wordDTO);
+        Word UpdateWord(WordDTO wordDTO);
+        void DeleteWord(WordDTO wordDTO);
         IEnumerable<Word> GetAllWords();
         Word SelectRandomWord();
-        bool TryLetter(Hanged hanged, char letter);
+        bool TryLetter(Hanged hanged, LetterDTO letterDTO);
     }
     public class WordService : IWordService
     {
@@ -30,36 +30,40 @@ namespace AhorcadoApiRest
         }
 
 
-        public Word CreateWord(string meaning)
+        public Word CreateWord(WordDTO wordDTO)
         {
-            IEnumerable<Letter> letters = meaning.ToCharArray().Select(letter => _letterService.ReadLetter(letter.ToString())).ToList();
+            IEnumerable<Letter> letters = wordDTO.Letters.Select(letterDTO => _letterService.ReadLetter(letterDTO)).ToList();
+            Word word = new Word(letters);
 
             foreach (var i in letters)
             {
                 Console.WriteLine(i.Value);
             }
-            return _wordRepository.Create(letters);
+            return _wordRepository.Create(word);
         }
 
 
-        public Word ReadWord(string meaning)
+        public Word ReadWord(WordDTO wordDTO)
         {
-            IEnumerable<Letter> letters = meaning.Select(letter => _letterService.ReadLetter(letter.ToString())).ToList();
-            return _wordRepository.Read(letters);
+            IEnumerable<Letter> letters = wordDTO.Letters.Select(letterDTO => _letterService.ReadLetter(letterDTO)).ToList();
+            Word word = new Word(letters);
+            return _wordRepository.Read(word);
         }
 
 
-        public Word UpdateWord(string meaning)
+        public Word UpdateWord(WordDTO wordDTO)
         {
-            return _wordRepository.Update(meaning);
-
+            IEnumerable<Letter> letters = wordDTO.Letters.Select(letterDTO => _letterService.ReadLetter(letterDTO)).ToList();
+            Word word = new Word(letters);
+            return _wordRepository.Update(word);
         }
 
 
-        public void DeleteWord(string meaning)
+        public void DeleteWord(WordDTO wordDTO)
         {
-            IEnumerable<Letter> letters = meaning.Select(letter => _letterService.ReadLetter(letter.ToString())).ToList();
-            _wordRepository.Delete(letters);
+            IEnumerable<Letter> letters = wordDTO.Letters.Select(letterDTO => _letterService.ReadLetter(letterDTO)).ToList();
+            Word word = new Word(letters);
+            _wordRepository.Delete(word);
         }
 
 
@@ -76,9 +80,9 @@ namespace AhorcadoApiRest
 
 
 
-        public bool TryLetter(Hanged hanged, char letter)
+        public bool TryLetter(Hanged hanged, LetterDTO letterDTO)
         {
-            Letter l = _letterService.ReadLetter(letter.ToString());
+            Letter l = _letterService.ReadLetter(letterDTO);
             if (hanged.UsedLetter.Contains(l)) return true;
             else return false;
 

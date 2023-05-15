@@ -6,10 +6,9 @@ namespace AhorcadoApiRest
 
     public interface ILetterRepository
     {
-        Letter Create(char value);
-        Letter Read(char l);
-        public Letter Update(char value);
-        public void Delete(char value);
+        Letter Create(Letter letter);
+        Letter Read(Letter letter);
+        public void Delete(Letter letter);
         public IEnumerable<Letter> GetAll();
     }
 
@@ -20,29 +19,24 @@ namespace AhorcadoApiRest
         public SqlServerLetterRepository(HangedDbContext db)
         {
             _db = db;
+            _db.Database.EnsureCreated();
         }
 
-        public Letter Create(char value)
+        public Letter Create(Letter letter)
         {
-            var letter = new Letter(value);
+            letter.Value = char.ToUpper(letter.Value);
             _db.Letter.Add(letter);
             _db.SaveChanges();
             return letter;
         }
 
-        public Letter Read(char value)
+        public Letter Read(Letter letter)
         {
-            return _db.Letter.ToList().Find(letter => letter.Value.ToString() == value.ToString().ToUpper());
+            return _db.Letter.FirstOrDefault(letter);
         }
 
-        public Letter Update(char value)
+        public void Delete(Letter letter)
         {
-            return new Letter();
-        }
-
-        public void Delete(char value)
-        {
-            var letter = this.Read(value);
             _db.Letter.Remove(letter);
             _db.SaveChanges();
         }
