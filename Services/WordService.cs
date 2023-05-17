@@ -11,10 +11,10 @@ namespace AhorcadoApiRest
     {
         public Word CreateWord(WordDTO wordDTO);
         Word ReadWord(WordDTO wordDTO);
-        Word UpdateWord(WordDTO wordDTO);
         void DeleteWord(WordDTO wordDTO);
         IEnumerable<Word> GetAllWords();
         Word SelectRandomWord();
+        void Discovery(Word word, LetterDTO letterDTO);
         bool TryLetter(Hanged hanged, LetterDTO letterDTO);
     }
     public class WordService : IWordService
@@ -32,38 +32,36 @@ namespace AhorcadoApiRest
 
         public Word CreateWord(WordDTO wordDTO)
         {
-            IEnumerable<Letter> letters = wordDTO.Letters.Select(letterDTO => _letterService.ReadLetter(letterDTO)).ToList();
-            Word word = new Word(letters);
-
-            foreach (var i in letters)
+            Word word = new Word(wordDTO);
+            word = _wordRepository.Create(word); //se crea la palabra primero
+            foreach (var c in word.Letters)
             {
-                Console.WriteLine(i.Value);
+                c.IdWord = word.Id;
+                LetterDTO letterDTO = new LetterDTO(c);
+                _letterService.UpdateIdWord(letterDTO); //por cada letra de la palabra se le asigna el id de la palabra en la columna IdWord
             }
-            return _wordRepository.Create(word);
+            return word;
         }
 
 
         public Word ReadWord(WordDTO wordDTO)
         {
-            IEnumerable<Letter> letters = wordDTO.Letters.Select(letterDTO => _letterService.ReadLetter(letterDTO)).ToList();
-            Word word = new Word(letters);
+            Word word = new Word(wordDTO);
             return _wordRepository.Read(word);
         }
 
-
-        public Word UpdateWord(WordDTO wordDTO)
-        {
-            IEnumerable<Letter> letters = wordDTO.Letters.Select(letterDTO => _letterService.ReadLetter(letterDTO)).ToList();
-            Word word = new Word(letters);
-            return _wordRepository.Update(word);
-        }
-
-
         public void DeleteWord(WordDTO wordDTO)
         {
-            IEnumerable<Letter> letters = wordDTO.Letters.Select(letterDTO => _letterService.ReadLetter(letterDTO)).ToList();
-            Word word = new Word(letters);
-            _wordRepository.Delete(word);
+            Word word = new Word(wordDTO);
+            _wordRepository.EmptyList(word); //vacio la lista de letras que tiene word sino se producen conflictos con la foreign key
+            IEnumerable<Letter> letters = _letterService.GetLettersByIdWord(wordDTO.Id);
+
+            foreach (var l in letters)
+            {
+                LetterDTO letterDTO = new LetterDTO(l);
+                _letterService.DeleteLetter(letterDTO); //se borran las letras primero sino se producen conflictos con la foreign key
+            }
+            _wordRepository.Delete(word); //por ultimo se borra la word
         }
 
 
@@ -78,23 +76,26 @@ namespace AhorcadoApiRest
             return _wordRepository.SelectRandomWord();
         }
 
-
+        public void Discovery(Word word, LetterDTO letterDTO)
+        {
+            IEnumerable<Letter> letters = _letterService.GetLettersByIdWord(word.Id);
+            for (int i = 0; i < letters.Count(); i++)
+            {
+                if (letters.ElementAt(i).Value == letterDTO.Value)
+                {
+                    _letterService.Discovery(letterDTO);
+                }
+            }
+        }
 
         public bool TryLetter(Hanged hanged, LetterDTO letterDTO)
         {
-            Letter l = _letterService.ReadLetter(letterDTO);
-            if (hanged.UsedLetter.Contains(l)) return true;
-            else return false;
-
-            /* foreach (var i in hanged.Word.Letters)
-             {
-                 if (i.Value == letter)
-                 {
-                     //Que pasa si es igual??
-                 }
-                 else //que pasa si es diferente???*/
-
-
+            //Letter letter = _letterService.ReadLetterForValue(letterDTO);
+            for (int i = 0; i < hanged.Word.Letters.Count(); i++)
+            {
+                if (hanged.Word.Letters[i].Value == letterDTO.Value) return true;
+            }
+            return false;
         }
     }
 }

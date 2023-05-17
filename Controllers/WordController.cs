@@ -35,12 +35,6 @@ namespace AhorcadoApiRest
             return Ok(_wordService.ReadWord(wordDTO));
         }
 
-        [HttpPost("UpdateWord")]
-        public IActionResult UpdateWord([FromBody] WordDTO wordDTO)
-        {
-            return Ok(_wordService.UpdateWord(wordDTO));
-        }
-
         [HttpDelete("DeleteWord")]
         public void DeleteWord([FromBody] WordDTO wordDTO)
         {

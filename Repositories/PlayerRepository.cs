@@ -46,7 +46,7 @@ namespace AhorcadoApiRest
 
         public void Delete(Player player)
         {
-            var playerToDelete = _db.Player.SingleOrDefault(p => p.Id == player.Id);
+            var playerToDelete = this.Read(player);
             _db.Player.Remove(playerToDelete);
             _db.SaveChanges();
         }

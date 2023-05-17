@@ -11,11 +11,12 @@ namespace AhorcadoApiRest
 {
     public interface IHangedService
     {
-        Hanged CreateHanged(PlayerDTO playerDTO);
+        HangedStruct CreateHanged(PlayerDTO playerDTO);
         Hanged ReadHanged(int id);
         void DeleteHanged(int id);
         IEnumerable<Hanged> GetAllHangeds();
-        // bool Play(int HangedId, char letter);
+        HangedDTO Play(int HangedId, LetterDTO letterDTO);
+        bool isUsedLetter(Hanged hanged, char letter);
 
     }
     public class HangedService : IHangedService
@@ -33,11 +34,12 @@ namespace AhorcadoApiRest
             _hangedRepository = hangedRepository;
         }
 
-        public Hanged CreateHanged(PlayerDTO playerDTO)
+        public HangedStruct CreateHanged(PlayerDTO playerDTO)
         {
             var player = _playerService.ReadPlayer(playerDTO);
             var word = _wordService.SelectRandomWord();
-            return _hangedRepository.Create(player, word);
+            HangedStruct hangedStruct = new HangedStruct(_hangedRepository.Create(player, word));
+            return hangedStruct;
         }
 
         public Hanged ReadHanged(int id)
@@ -55,10 +57,36 @@ namespace AhorcadoApiRest
             return _hangedRepository.GetAllHangeds();
         }
 
-        /*public bool Play(int HangedId, char letter)
+        public bool isUsedLetter(Hanged hanged, char letter)
         {
-            var hanged = this.ReadHanged(HangedId);
-            return _wordService.TryLetter(hanged, letter);
-        }*/
+            foreach (var aux in hanged.UsedLetter)
+            {
+                if (aux.Value == letter) return true;
+            }
+            return false;
+        }
+
+        public HangedDTO Play(int HangedId, LetterDTO letterDTO)
+        {
+            Hanged hanged = this.ReadHanged(HangedId);
+
+            if (!this.isUsedLetter(hanged, letterDTO.Value))
+            {
+                bool isGuessed = _wordService.TryLetter(hanged, letterDTO); //Lo ideal es pasar HangedDTO. Falta esa logica.
+                if (isGuessed)
+                {
+                    _wordService.Discovery(hanged.Word, letterDTO);//Lo ideal es pasar WordDTO. Falta esa logica.
+                }
+                else
+                {
+                    hanged.Lives -= 1;
+                }
+                Letter letter = new Letter(letterDTO);
+                hanged.UsedLetter.Add(letter);
+                _hangedRepository.UpdateHanged(hanged);
+            }
+            return new HangedDTO(hanged);
+        }
     }
+
 }

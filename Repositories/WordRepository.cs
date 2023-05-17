@@ -9,10 +9,10 @@ namespace AhorcadoApiRest
     {
         Word Create(Word word);
         Word Read(Word word);
-        Word Update(Word word);
         void Delete(Word word);
         IEnumerable<Word> GetAll();
         Word SelectRandomWord();
+        Word EmptyList(Word word);
     }
 
     public class SqlServerWordRepository : IWordRepository
@@ -34,20 +34,13 @@ namespace AhorcadoApiRest
 
         public Word Read(Word word)
         {
-            return _db.Word.Single(w => w.Id == word.Id);
-        }
-
-        public Word Update(Word word)
-        {
-            var wordToUpdate = this.Read(word);
-            wordToUpdate.Letters = word.Letters;
-            _db.SaveChanges();
-            return wordToUpdate;
+            return _db.Word.Single(w => w.Meaning == word.Meaning);
         }
 
         public void Delete(Word word)
         {
-            _db.Word.Remove(word);
+            Word wordToDelete = this.Read(word);
+            _db.Word.Remove(wordToDelete);
             _db.SaveChanges();
         }
 
@@ -59,6 +52,15 @@ namespace AhorcadoApiRest
         public Word SelectRandomWord()
         {
             return _db.Word.OrderBy(o => Guid.NewGuid()).FirstOrDefault();
+        }
+
+        public Word EmptyList(Word word)
+        {
+            Word wordToEmpty = this.Read(word);
+            wordToEmpty.Letters.Clear();
+            _db.Word.Update(wordToEmpty);
+            _db.SaveChanges();
+            return wordToEmpty;
         }
 
     }

@@ -6,14 +6,24 @@ namespace AhorcadoApiRest
     public class Word
     {
         public int Id { get; set; }
-        public IEnumerable<Letter> Letters { get; set; } = new List<Letter>();
+
+        public string Meaning { get; set; }
+        public List<Letter> Letters { get; set; } = new List<Letter>();
 
         public Word()
         {
         }
-        public Word(IEnumerable<Letter> meaning)
+        public Word(WordDTO wordDTO)
         {
-            Letters = meaning;
+            this.Id = wordDTO.Id;
+            List<Letter> letters = new List<Letter>();
+            foreach (var lDTO in wordDTO.Letters)
+            {
+                Letter let = new Letter(lDTO);
+                letters.Add(let);
+            }
+            Letters = letters;
+            this.Meaning = wordDTO.Meaning;
         }
 
     }

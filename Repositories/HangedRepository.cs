@@ -12,6 +12,7 @@ namespace AhorcadoApiRest
         Hanged Read(int id);
         void Delete(int id);
         IEnumerable<Hanged> GetAllHangeds();
+        void UpdateHanged(Hanged hanged);
 
     }
 
@@ -34,7 +35,7 @@ namespace AhorcadoApiRest
 
         public Hanged Read(int id)
         {
-            return _db.Hanged.FirstOrDefault(h => h.Id == id);
+            return _db.Hanged.Single(h => h.Id == id);
         }
 
         public void Delete(int id)
@@ -47,6 +48,12 @@ namespace AhorcadoApiRest
         public IEnumerable<Hanged> GetAllHangeds()
         {
             return _db.Hanged.ToList();
+        }
+
+        public void UpdateHanged(Hanged hanged)
+        {
+            _db.Hanged.Update(hanged);
+            _db.SaveChanges();
         }
     }
 }

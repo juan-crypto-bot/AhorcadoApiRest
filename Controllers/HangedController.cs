@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json.Linq;
 
 namespace AhorcadoApiRest
 {
@@ -52,21 +53,12 @@ namespace AhorcadoApiRest
             return _hangedService.GetAllHangeds();
         }
 
-
-        /* [HttpPost("TryLetter")]
-         public bool Play([FromBody] int HangedId, string letter)
-         {
-             char firstChar = letter.FirstOrDefault();
-             var a = _hangedService.Play(HangedId, firstChar);
-             if (a) Console.WriteLine("true");
-             return a;
-             /*try
-             {
-                 Ok(_hangedService.Play(HangedId, letter));
-             }
-             catch
-             {
-                 return BadRequest("An error had ocurred");
-             }*/
+        [HttpPost("TryLetter")]
+        public HangedDTO Play([FromBody] JObject data)
+        {
+            int HangedId = data["HangedId"].ToObject<int>();
+            LetterDTO letterDTO = data["LetterDTO"].ToObject<LetterDTO>();
+            return _hangedService.Play(HangedId, letterDTO);
+        }
     }
 }

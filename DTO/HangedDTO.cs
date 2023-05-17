@@ -8,23 +8,25 @@ namespace AhorcadoApiRest
 
         public int Id { get; set; }
         public int Lives { get; set; }
-        public PlayerDTO PlayerDTO { get; set; }
-        public WordDTO WordDTO { get; set; }
-
+        public string Word { get; set; }
         public List<Letter> UsedLetter { get; set; } = new List<Letter>();
 
         public HangedDTO()
         {
 
         }
-
-        public HangedDTO(PlayerDTO playerDTO, WordDTO wordDTO)
+        public HangedDTO(Hanged hanged)
         {
-            this.Lives = 6;
-            this.PlayerDTO = playerDTO;
-            this.WordDTO = wordDTO;
-
+            this.Id = hanged.Id;
+            this.Lives = hanged.Lives;
+            foreach (var c in hanged.Word.Letters)
+            {
+                if (c.IsGuessed == true) this.Word += c;
+                else this.Word += '*';
+            }
+            this.UsedLetter = hanged.UsedLetter;
         }
+
 
     }
 
