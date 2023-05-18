@@ -73,6 +73,7 @@ namespace AhorcadoApiRest
             if (!this.isUsedLetter(hanged, letterDTO.Value))
             {
                 bool isGuessed = _wordService.TryLetter(hanged, letterDTO); //Lo ideal es pasar HangedDTO. Falta esa logica.
+                Console.WriteLine(isGuessed);
                 if (isGuessed)
                 {
                     _wordService.Discovery(hanged.Word, letterDTO);//Lo ideal es pasar WordDTO. Falta esa logica.

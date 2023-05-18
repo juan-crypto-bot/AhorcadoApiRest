@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace AhorcadoApiRest
 {
@@ -34,7 +35,7 @@ namespace AhorcadoApiRest
 
         public Word Read(Word word)
         {
-            return _db.Word.Single(w => w.Meaning == word.Meaning);
+            return _db.Word.Include(w => w.Letters).Single(w => w.Meaning == word.Meaning);
         }
 
         public void Delete(Word word)

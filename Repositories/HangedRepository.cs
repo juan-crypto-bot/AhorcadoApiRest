@@ -35,7 +35,7 @@ namespace AhorcadoApiRest
 
         public Hanged Read(int id)
         {
-            return _db.Hanged.Single(h => h.Id == id);
+            return _db.Hanged.Include(h => h.Word).Include(h => h.Player).Include(h => h.UsedLetter).Single(h => h.Id == id);
         }
 
         public void Delete(int id)

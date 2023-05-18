@@ -91,7 +91,9 @@ namespace AhorcadoApiRest
         public bool TryLetter(Hanged hanged, LetterDTO letterDTO)
         {
             //Letter letter = _letterService.ReadLetterForValue(letterDTO);
-            for (int i = 0; i < hanged.Word.Letters.Count(); i++)
+            if (hanged.Word.Letters != null) Console.WriteLine("hola");
+            else Console.WriteLine("chau");
+            for (int i = 0; i < hanged.Word.Letters.Count; i++)
             {
                 if (hanged.Word.Letters[i].Value == letterDTO.Value) return true;
             }
