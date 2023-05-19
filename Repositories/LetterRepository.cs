@@ -50,11 +50,10 @@ namespace AhorcadoApiRest
             return _db.Letter.ToList();
         }
 
-        public IEnumerable<Letter> GetLettersByIdWord(int id)
+        public IEnumerable<Letter> GetLettersByIdWord(int id)  //Se crea porque no hay navegacion del tipo Hanged.Word.Letters
         {
             return _db.Letter.Where(l => l.IdWord == id);
         }
-
         public void Discovery(Letter letter)
         {
             Letter let = this.Read(letter);
@@ -66,7 +65,6 @@ namespace AhorcadoApiRest
         public void UpdateIdWord(Letter letter)
         {
             Letter let = this.Read(letter);
-            let.IdWord = letter.IdWord;
             _db.Update(let);
             _db.SaveChanges();
         }

@@ -83,7 +83,8 @@ namespace AhorcadoApiRest
             {
                 if (letters.ElementAt(i).Value == letterDTO.Value)
                 {
-                    _letterService.Discovery(letterDTO);
+                    LetterDTO lDTO = new LetterDTO(letters.ElementAt(i));
+                    _letterService.Discovery(lDTO);
                 }
             }
         }
@@ -91,11 +92,12 @@ namespace AhorcadoApiRest
         public bool TryLetter(Hanged hanged, LetterDTO letterDTO)
         {
             //Letter letter = _letterService.ReadLetterForValue(letterDTO);
-            if (hanged.Word.Letters != null) Console.WriteLine("hola");
-            else Console.WriteLine("chau");
-            for (int i = 0; i < hanged.Word.Letters.Count; i++)
+            WordDTO wordDTO = new WordDTO(hanged.Word);
+            IEnumerable<Letter> letters = _letterService.GetLettersByIdWord(wordDTO.Id);
+            Letter letter = new Letter(letterDTO);
+            for (int i = 0; i < letters.Count(); i++)
             {
-                if (hanged.Word.Letters[i].Value == letterDTO.Value) return true;
+                if (letters.ElementAt(i).Value == letterDTO.Value) return true;
             }
             return false;
         }

@@ -11,7 +11,7 @@ namespace AhorcadoApiRest
 {
     public interface IHangedService
     {
-        HangedStruct CreateHanged(PlayerDTO playerDTO);
+        HangedDTO CreateHanged(PlayerDTO playerDTO);
         Hanged ReadHanged(int id);
         void DeleteHanged(int id);
         IEnumerable<Hanged> GetAllHangeds();
@@ -23,23 +23,25 @@ namespace AhorcadoApiRest
     {
         private readonly IPlayerService _playerService;
         private readonly IHangedRepository _hangedRepository;
+        private readonly ILetterService _letterService;
         private readonly IWordService _wordService;
         private readonly ILogger<HangedService> _logger;
 
-        public HangedService(ILogger<HangedService> logger, IPlayerService playerService, IWordService wordService, IHangedRepository hangedRepository)
+        public HangedService(ILogger<HangedService> logger, IPlayerService playerService, IWordService wordService, IHangedRepository hangedRepository, ILetterService letterService)
         {
             _logger = logger;
             _playerService = playerService;
             _wordService = wordService;
+            _letterService = letterService;
             _hangedRepository = hangedRepository;
         }
 
-        public HangedStruct CreateHanged(PlayerDTO playerDTO)
+        public HangedDTO CreateHanged(PlayerDTO playerDTO)
         {
             var player = _playerService.ReadPlayer(playerDTO);
             var word = _wordService.SelectRandomWord();
-            HangedStruct hangedStruct = new HangedStruct(_hangedRepository.Create(player, word));
-            return hangedStruct;
+            IEnumerable<Letter> letters = _letterService.GetLettersByIdWord(word.Id);
+            return new HangedDTO(_hangedRepository.Create(player, word), letters);
         }
 
         public Hanged ReadHanged(int id)
@@ -72,8 +74,7 @@ namespace AhorcadoApiRest
 
             if (!this.isUsedLetter(hanged, letterDTO.Value))
             {
-                bool isGuessed = _wordService.TryLetter(hanged, letterDTO); //Lo ideal es pasar HangedDTO. Falta esa logica.
-                Console.WriteLine(isGuessed);
+                bool isGuessed = _wordService.TryLetter(hanged, letterDTO); //Implementarlo en hanged directamente
                 if (isGuessed)
                 {
                     _wordService.Discovery(hanged.Word, letterDTO);//Lo ideal es pasar WordDTO. Falta esa logica.
@@ -82,12 +83,18 @@ namespace AhorcadoApiRest
                 {
                     hanged.Lives -= 1;
                 }
+                if (hanged.Lives == 0)
+                {
+                    Console.WriteLine("Game Over.You lose");
+                }
                 Letter letter = new Letter(letterDTO);
                 hanged.UsedLetter.Add(letter);
                 _hangedRepository.UpdateHanged(hanged);
             }
-            return new HangedDTO(hanged);
+            IEnumerable<Letter> letters = _letterService.GetLettersByIdWord(hanged.Word.Id);
+            return new HangedDTO(hanged, letters);
         }
+        //Controlar cuando termina y controlar las used letters que sean solo enteros
     }
 
 }

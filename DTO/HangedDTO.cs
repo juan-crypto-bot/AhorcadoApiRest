@@ -15,13 +15,13 @@ namespace AhorcadoApiRest
         {
 
         }
-        public HangedDTO(Hanged hanged)
+        public HangedDTO(Hanged hanged, IEnumerable<Letter> letters)
         {
             this.Id = hanged.Id;
             this.Lives = hanged.Lives;
-            foreach (var c in hanged.Word.Letters)
+            foreach (var c in letters)
             {
-                if (c.IsGuessed == true) this.Word += c;
+                if (c.IsGuessed == true) this.Word += c.Value.ToString();
                 else this.Word += '*';
             }
             this.UsedLetter = hanged.UsedLetter;

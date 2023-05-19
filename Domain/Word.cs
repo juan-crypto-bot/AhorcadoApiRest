@@ -9,6 +9,7 @@ namespace AhorcadoApiRest
 
         public string Meaning { get; set; }
         public List<Letter> Letters { get; set; } = new List<Letter>();
+        public Hanged Hanged { get; set; }
 
         public Word()
         {
@@ -24,8 +25,7 @@ namespace AhorcadoApiRest
             }
             Letters = letters;
             this.Meaning = wordDTO.Meaning;
+            this.Hanged = wordDTO.Hanged;
         }
-
     }
-
 }

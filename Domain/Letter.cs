@@ -8,6 +8,9 @@ namespace AhorcadoApiRest
         public char Value { get; set; }
         public bool IsGuessed { get; set; }
         public int IdWord { get; set; }
+        //public Word Word { get; set; }
+        //public int IdHanged{get; set;}
+        //public Hanged Hanged { get; set; }
 
 
         public Letter() { }
@@ -18,17 +21,9 @@ namespace AhorcadoApiRest
             this.Value = letterDTO.Value;
             this.IsGuessed = letterDTO.IsGuessed;
             this.IdWord = letterDTO.IdWord;
-        }
-        public Letter(char value)
-        {
-            this.Value = value;
-            this.IsGuessed = false;
-        }
-        public bool isEqual(Letter letter)
-        {
-            return this.Value == letter.Value;
+            //this.Word = letterDTO.Word;
+            //this.IdHanged = letterDTO.IdHanged;
+            //this.Hanged = letterDTO.Hanged;
         }
     }
-
-
 }
