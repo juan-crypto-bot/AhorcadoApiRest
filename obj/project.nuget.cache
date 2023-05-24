@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "XctLsIyvXrLw41C7x36EsZg+A43GQYQkgOUP7kM/5AzcmZTO/8Dy+lxmCVYbgQewDr/z+btoYWe0MkXAsX29RA==",
+  "dgSpecHash": "Ymw86F8416fKkDJoU4s4pA0KE2WynOluD7WJTZeQnZl22FxrF1wOSvx8gm2ShpBFiHHwcWNEF68QB+ayqXkfFA==",
   "success": true,
-  "projectFilePath": "C:\\Diveria\\AhorcadoApi\\AhorcadoApiRest.csproj",
+  "projectFilePath": "c:\\Diveria\\AhorcadoApi\\AhorcadoApiRest.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\juana\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\juana\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
